@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %} 
+{{ block.super}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+</head>
+<body>
+        
+ <div class="container-fluid">
+    <div class="row"> 
+            {% for images in own_page %}
+            
+        <header style="background-image: url('{{images.image.url}}')">
+                <h1 class="me">{{images.title}} </h1>
+                <h3 style="color:white;padding-top:50px;">site of the Day{{images.pub_date}}</h3>
+                <a href="{{images.link}}"  target="_blank"><button class="btn btn-outline-success" style="border-radius:50px;margin-left:20px;margin-top:450px;" >visite site</button></a>
+    <!-- <img src="{{images.image.url}}"class="image-responsive" width="350" style="height:200px;margin-top:20px"> -->
+</a>
+</header> 
+
+
+</div>
+
+</div>         
+<div class="row rate">
+        
+    <div class="col-md-3">
+           <buton class="btn btn-outline-info"style="width:200px;border-radius:25px;;"><h3>Content </h3><h4>{{content}}</h4></buton> 
+        </div><br>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+        <buton class="btn btn-outline-info"style="width:200px;border-radius:25px;;"><h3>Usability </h3><h4>{{usability}}</h4></buton>
+        </div><br>
+        <div class="col-md-2"></div>
+        <div class="col-md-3  bo">
+        <buton class="btn btn-outline-info"style="width:200px;border-radius:25px;;">  <h3>Design</h3><h4>{{design}}</h4></buton>
+        </div>
+</div>
+        
+
+
+
+<button class="btn btn-outline-info" style="margin-left: 400px;margin-top:50px;" type="button" data-target="#votesform" data-toggle="modal">Rating</button>
+       
+        <a href="{% url 'comment' images.id %}"><button class="btn btn-outline-info"style="float:300px;margin-top:50px;">write your comment here</button></a> 
+      
+        <br>
+
+
+ <div class="modal fade" id="votesform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100 font-weight-bold" id="vote">Vote</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div> 
+  <div class="modal-body mx-3">
+            <div class="form animated slideInDown">
+                            <form action="{% url 'own_page' images.id %}"method="POST">
+                                    {% csrf_token %}
+                                    {% bootstrap_form form %}
+                                    <button class="btn btn-outline-info modal-footer d-flex justify-content-center" type="submit">Submit <i class="fas fa-paper-plane-o ml-1"></i> </button>
+                            </form>
+            </div>
+  </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+
+{% endfor %}
+  
+     
+     <div class="container">
+    <div class="row">
+
+             <div class="col-sm-4"></div>
+             <div class="col-sm-6">
+                    <h4 style="margin-top:40px;"> Total Votes: {{all|length}} </h4>
+            </div>
+    </div>
+    <div class="row">
+            <div class="list-group">
+                    <ul class="list-group">
+                            {%if all%}
+                            <table  class="table">
+                                    <th>Voters</th>
+                                    <th>Rating</th>
+                                    {%for one in all%}<tr> 
+                                            <td> <img src="{{one.user.profile.profile_photo.url}}" alt="" width='30px' height="30px">  {{one.user}}</td>
+                                            <td>
+                                                    <div class="design">
+                                                            <a href="" class="scores">{{one.design}}</a>
+                                                            <a href="">{{one.usability}}</a>
+                                                            <a class='b' href="">{{one.content}}</a>
+                                                    </div>
+                                            </td>
+                                            {%endfor%}
+                            </table>
+                           
+                            {%endif%} 
+                    </ul>
+            </div>
+    </div>
+    
+    
+    </div>   
+  
+   
+         {% for com in image.comment_set.all %}
+        <p>comment:{{com.comment}}</p>
+        {% endfor %}
+<footer style="background-color: black;color:white;font-family: 'Times New Roman', Times, serif;
+text-transform: capitalize;margin-top:40px;padding-top:80px;height:200px;text-align:center;">
+<h3>copyright Laetitia |all right reserved| 2019 </h3>
+</footer> 
+
+<style>
+      
+    h1{
+    position:absolute;
+    padding-left:30%;
+    top:60%;
+    text-align: center;  
+    color:white;
+    font-size:54px;
+    font-family: 'Times New Roman', Times, serif;
+    }
+    .h3{
+    position:absolute;
+    padding-left:30%;
+    top:60%;
+    text-align: center;  
+    color:blanchedalmond;
+    font-size:54px;
+    font-family: 'Times New Roman', Times, serif;      
+    }
+header{
+  position:reletive;
+  width: 100%;
+  height:700px;
+  background-size:cover;
+  background-position: no-repeat;
+  /* background-color: black;
+  opacity:0.8; */
+} 
+
+.rate{
+    position:absolute;
+    top:90%;
+    left:40%;
+    transform: translate(-50%,-50%);
+    color:white;
+    font-size:50px;
+    font-family:'Times New Roman', Times, serif;
+}
+.table{
+        margin-left:300px;
+        margin-top:50px;
+
+}
+
+
+</style>
+</body>
+</html>
+  
+
+ {% endblock %} 

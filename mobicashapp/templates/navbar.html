@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Charmonman|Kodchasan|Dancing+Script|Spirax" rel="stylesheet">
+  
+</head>
+<body>
+  
+
+
+  <nav class="navbar  " style="color: black;border-bottom:2px solid rgb(228, 222, 222)">
+    <div class="container-fluid" >
+            <a class="navbar-brand" href="{% url 'newsToday' %}" style="font-size:28px;color:black;font-family: 'Times New Roman', Times, serif;">
+             Award</a>
+    <!-- <div class="col-sm-1 navbar-right" >
+    </div> -->
+      <!-- Adding a search form  -->
+          
+    <div class="col-sm-10 col-md-10 navbar-right" style=margin-left:200px;margin-top:-30px;>
+            <form class="navbar-form" role="search" action="{% url 'search_results' %}" style="width:300px;">
+
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search project" name="title"style="height:50px;">
+              <div class="input-group-btn">
+                <button class="btn btn-info"style="height:50px;" type="submit"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+  
+          </form>
+          <ul style=margin-left:400px;margin-top:-60px;>
+     
+              <a class='btn btn-default' style="font-size:18px;" href="/accounts/register/">Register</a> /<a class='btn btn-default'style="font-size:18px;" href="accounts/login">Login</a>
+         
+              <a class='btn btn-default'style="font-size:18px" href="{%url 'mine'%}">Profile</a><a class='btn btn-default'style="font-size:18px;" href="/logout">Logout</a>
+            <a  class='btn btn-default'style="font-size:18px" href="{%url 'new-article'%}"><button class="btn btn-info" style="padding-top:-65px;height:80px;"> submit your project</button></a>
+            
+      
+        </ul>
+    
+      
+    </div>
+      <!-- search form end -->
+          
+
+    </div>
+  </nav> 
+    
+     
+</body>
+<style>
+  a{
+    color:black;
+    font-family: 'Times New Roman', Times, serif;
+    
+  }
+    a:hover{
+      background-color:#1AA2B8;
+      color:white;
+    }
+  
+</style>
+</html>

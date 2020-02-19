@@ -1,0 +1,49 @@
+{%extends "registration/base.html"%}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container">
+  <div class="row" style="margin-top:80px;">
+    <!-- Empty div -->
+    <div class="col-md-2"></div>
+    <div class="col-md-4"><img src="/static/images/instagram.png"></div>
+    <div class="col-md-4">
+      {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+      {% endif %}
+      <div class="panel panel-default"style="margin-top:-10px;height:700px;background-color:#ffffff;">
+
+        <div class="panel-heading">
+         <strong> <h3 class="text-center" style="font-family: 'Lobster Two', cursive;font-size: 40px;">Instagram</h3></strong>
+       <p style="text-align:center;">Sign up to see photos and videos from your friends.</p>
+        </div>
+        <div class="panel-body">
+
+          <form  action="/accounts/login/" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary btn-sm" value="Login">
+              <button class="btn btn-primary btn-sm" value="Login"> <a href="/accounts/register/"style="color:white">sin up</a></button>
+            </div>
+
+            <input type="hidden" name="next" value="{{next}}">
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="form-group">
+     
+      </div>
+    <!-- empty div -->
+    <div class="col-md-4">
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

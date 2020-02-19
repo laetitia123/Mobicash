@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %} 
+{{ block.super}}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body >
+  <header>
+    <div class="mee">
+      
+<h3>site of the  Day October24,2019</h3>
+<h2>webVR site for The White Tower</h2>
+<button class="btn btn-info"style="margin-top:150px;border-radius:50px;" >visite site</button>
+<button class="btn btn-outline-info" style="margin-top:150px;border-radius:50px;">visite site</button>
+    </div>
+  </header>
+
+<div class="container" >
+  <div class="row">
+    
+      <div class="col-md-4"style="margin-top:50px;font-family:'Times New Roman', Times, serif;margin-bottom:80px;">
+      <h5><strong>Sites of the day </strong>Previous Winners</h5>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"style="margin-top:50px;font-family:'Times New Roman', Times, serif;margin-bottom:80px;">
+      <h5><strong>Mobile Excellence </strong>Site of the week</h5>
+    </div>
+  </div>
+
+  <div class="row">
+  {% for image in images %}
+ 
+
+  
+      <div class="col-sm-6" width="400px" style="border:1px solid whitesmoke;padding-top:20px;" >
+          <div class="wrapper">
+              <div class="parent" onclick="">
+                  <div class="child bg-one">
+          
+              <!-- <img src="{{user.profile.profile_picture.url}}" class="img-circle"  width="32" height="32">
+              
+              <strong style="color: #333333;cursor: pointer">{{user.profile.Name}}</strong>
+              <p style="margin-left:520px;margin-top:-50px;font-size:30px;">...</p> -->
+         
+        <img src="{{image.image.url}} " id="image" style=" margin-bottom:20px;" class="img-fluid"  alt="Image">
+        <!-- alt="{{image.user.user.username}}" width="30" height="30"> -->
+      </div>
+  
+    <stron><h6 style="color: #333333;cursor: pointer;padding-top:30px">{{image.title}}</strong></h6>
+    <h6 style="margin-left:150px;">{{image.pub_date }}</h6><br></br>
+    <h6>
+       <img src="{{user.profile.profile_picture.url}}" class="img-circle"  width="32" height="32"> 
+      Posted  by 
+       <strong style="color: #333333;cursor: pointer">{{user.profile.Name}}</strong></h6>
+  
+    <!-- <a href="{% url 'like' id=image.id%}"><i class="fa fa-heart-o" style="color: black;size: 150px;"></i></a> -->
+    <!-- <a href="{% url 'comment' image.id %}"><i class="fa fa-comment-o" style="color: black;size: 150px;"></i></a>  -->
+    <br>
+    
+   
+    <span style="color:red;">comments</span>
+    <hr>
+      
+  {% for com in image.comment_set.all %}
+ 
+                <h6>{{com.comment}}     <strong><span style="margin-left:20px;">{{user.profile.Name}}</span></h6>
+                {% endfor %}
+              <hr>
+            
+                       
+              <!-- <a  class="btn" href="{% url 'like' id=image.id%}" >      -->
+              <!-- <h6 >{{image.likes}} Likes</h6> -->
+<p><a href="{% url 'own_page' image.id %}"><button class="btn btn-outline-info">VIEW PROJECT</button></a>
+</p>
+    </div>
+    </div>
+    </div>
+
+ 
+
+          
+ 
+
+{% endfor %}
+</div>
+</div>
+<style>
+
+
+/* Global Styling */
+
+
+#logo {height: 80px; margin-left: 20px;}
+
+.wrapper {
+    /* padding: 50px 50px; */
+    /* max-width: 1200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+        margin-top: 80px; */
+}
+
+.right {float: right !important;}
+/* Image zoom on hover + Overlay colour */
+.parent {
+    /* width: 45%; */
+    /* margin: 20px;
+    height: 300px; */
+    /* border: 1px solid blue; */
+    overflow: hidden;
+    position: relative;
+    /* float: left; */
+    display: inline-block;
+    cursor: pointer;
+}
+
+.child {
+    /* height: 100%;
+    width: 100%; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+/* Several different images */
+/* .bg-one {background-image: url(https://media.timeout.com/images/101602611/image.jpg);}
+.bg-two {background-image: url(http://s1.it.atcdn.net/wp-content/uploads/2015/08/2-London.jpg);}
+.bg-three {background-image: url(https://media.timeout.com/images/101484105/image.jpg);}
+.bg-four {background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Hollywood_Sign.jpg/1280px-Hollywood_Sign.jpg);}
+.bg-five {background-image: url(http://www.travelandleisure.com/sites/default/files/styles/tnl_redesign_article_landing_page/public/1453920892/DUBAI-554088081-ABOVE0116.jpg?itok=dcoZnCrc);}
+.bg-six {background-image: url(http://blog.whitepages.com/wp-content/uploads/2015/04/san-franc.jpg);} */
+
+
+p{
+    display: none;
+    font-size: 35px;
+    color: black !important;
+    font-family: sans-serif;
+    text-align: center;
+    margin:150px;
+    position: absolute;
+    top:0;
+    left: 0;
+    bottom:0;
+    right: 0;
+    height: 50px;
+    cursor: pointer;
+    /*text-decoration: none;*/
+}
+
+.parent:hover .child, .parent:focus .child {
+    -ms-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.parent:hover .child:before, .parent:focus .child:before {
+    display: block;
+    background-color:black;
+}
+
+.parent:hover p, .parent:focus p{
+    display: block;
+}
+
+.child:before {
+    content: "";
+    display: none;
+    height:95%;
+    width:500px; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color:black !important;
+    opacity:0.6;
+}
+
+/* Media Queries */
+@media screen and (max-width: 960px) {
+    .parent {width: 100%; margin: 30px 0px}
+        .wrapper {padding: 20px 20px;}
+}
+
+
+
+
+.hello {display: none}
+
+
+ 
+ 
+  .mee{
+    background-image:url('/static/images/award.jpg');
+    
+    height:700px;
+    background-size: cover;
+    background-position: no repeat;
+    color:white;
+    padding-left:50px;
+    padding-top:30px;
+   
+
+  }
+ 
+  .img-responsive:hover
+    {
+      -moz-box-shadow: 0 0 10px #ccc;
+      -webkit-box-shadow: 0 0 10px black;
+      box-shadow: 0 0 10px black;
+    }
+  
+  header{
+    background-color:black;
+    opacity:0,5;
+  }
+  #button{
+    margin-top:750px;
+    margin-left:50px;
+    border-radius: 25px;
+    width:100px;
+  }
+  h2{
+    font-size:45px;
+    text-transform: capitalize;
+    text-align:center;
+    padding-top:250px;
+  }
+</style>
+
+{% endblock %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+{% bootstrap_javascript %} 
+
+<!--End of the block content-->
+ {{block.super}}
+  <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script>
+  <footer style="background-color: black;color:white;font-family: 'Times New Roman', Times, serif;
+  text-transform: capitalize;margin-top:40px;padding-top:80px;height:150px;text-align:center;">
+  <h3>copyright Laetitia | all right reserved | 2019 </h3>
+  </footer> 
+  
+{% endblock %}
+
+</div>
+</body>
+
+</html>
