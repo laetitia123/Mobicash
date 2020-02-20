@@ -7,8 +7,12 @@ from django.db.models.signals import post_save
 from django .core.validators import MaxValueValidator
 
 class Project(models.Model):
-    title = models.CharField(max_length =60)
+    sku= models.CharField(max_length =60)
+    upc= models.CharField(max_length =60)
+    pname= models.CharField(max_length =60)
     description=models.CharField(max_length =360)
+    taxcode= models.CharField(max_length =60)
+    tax_rate= models.CharField(max_length =60)
     profile = models.ForeignKey(User,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'projectes/')

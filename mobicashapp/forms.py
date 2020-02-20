@@ -61,10 +61,10 @@ class uploadimageForm(forms.ModelForm):
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
         }
-class uploadimageForm(forms.ModelForm):
+class uploadCustomerForm(forms.ModelForm):
     class Meta:
         model = Project
-        exclude = ['editor', 'pub_date']
+        exclude = ['editor', 'pub_date' ]
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
         }        

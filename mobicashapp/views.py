@@ -42,7 +42,7 @@ def news_today(request):
         form = uploadimageForm(request.POST)
         if form.is_valid():
             print('valid')
-            title = form.cleaned_data['your_title']
+            sku = form.cleaned_data['your_title']
             email = form.cleaned_data['email']
             recipient = NewsLetterRecipients(title = title,email =email)
             recipient.save()
@@ -62,10 +62,10 @@ def article(request,article_id):
         raise Http404()
     return render(request,"all-news/article.html", {"article":article})
 @login_required(login_url='/accounts/login/')
-def new_article(request):
+def add_customer(request):
     current_user = request.user
     if request.method == 'POST':
-        form = uploadimageForm(request.POST, request.FILES)
+        form = uploadCustomerForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.editor = current_user
@@ -73,7 +73,7 @@ def new_article(request):
         return redirect(news_today)
 
     else:
-        form = uploadimageForm()
+        form = uploadCustomerForm()
     return render(request, 'new_article.html', {"form": form})
 
 @login_required(login_url='/accounts/login/')

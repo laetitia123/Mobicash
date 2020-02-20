@@ -8,7 +8,7 @@ urlpatterns=[
     
     url(r'myaccount/', views.mine, name='myaccount'),
     url(r'^article/(\d+)',views.article,name ='article'),
-    url(r'^new/article$', views.new_article, name='new-article'),
+    url(r'^new/article$', views.add_customer, name='add-customer'),
 
     url(r'comment/(\d+)/$', views.add_comment, name='comment'),
     url(r'myaccount/', views.mine, name='mine'),
