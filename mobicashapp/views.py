@@ -1,5 +1,5 @@
+from __future__ import unicode_literals
 from django.shortcuts import render,redirect
-
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
 from .models import *
@@ -11,6 +11,57 @@ from rest_framework.views import APIView
 from .models import *
 from .serializer import MerchSerializer,MerchSerializerpro
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
+def news_today(request):
+    date = dt.date.today()
+    images= Project.objects.all()
+    current_user=request.user
+    myprof=Profile.objects.filter(id=current_user.id).first()
+    
+    if request.method == 'POST':
+        form = uploadimageForm(request.POST)
+        if form.is_valid():
+            print('valid')
+            sku = form.cleaned_data['your_title']
+            email = form.cleaned_data['email']
+            recipient = NewsLetterRecipients(title = title,email =email)
+            recipient.save()
+            send_welcome_email(title,email)
+            HttpResponseRedirect('news_today')
+
+    else:
+        form = uploadimageForm()
+    return render(request, 'home.html', {"date": date,"images":images,"myprof":myprof,"letterForm":form})
+
+
+def register(response):
+    if response.method == "POST":
+        form = RegisterForm(response.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('login')
+    else:
+        form = RegisterForm()
+    return render(response, "registration/register.html", {"form": form})
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('newsToday')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {"form": form})
+
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+    return redirect('login')
 
 class MerchList(APIView):
     def get(self, request, format=None):
@@ -32,26 +83,6 @@ def newsletter(request):
     data = {'success': 'You have been successfully added to mailing list'}
     return JsonResponse(data)
 
-def news_today(request):
-    date = dt.date.today()
-    images= Project.objects.all()
-    current_user=request.user
-    myprof=Profile.objects.filter(id=current_user.id).first()
-    
-    if request.method == 'POST':
-        form = uploadimageForm(request.POST)
-        if form.is_valid():
-            print('valid')
-            sku = form.cleaned_data['your_title']
-            email = form.cleaned_data['email']
-            recipient = NewsLetterRecipients(title = title,email =email)
-            recipient.save()
-            send_welcome_email(title,email)
-            HttpResponseRedirect('news_today')
-
-    else:
-        form = uploadimageForm()
-    return render(request, 'home.html', {"date": date,"images":images,"myprof":myprof,"letterForm":form})
 
 
 @login_required(login_url='/accounts/login/')       

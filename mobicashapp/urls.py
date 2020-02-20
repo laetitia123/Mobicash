@@ -1,11 +1,15 @@
-from django.conf.urls import url
 from . import views
+from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
-
+from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns=[
-    url(r'^$',views.news_today,name='newsToday'),
-    
+    url(r'newsToday',views.news_today,name='newsToday'),
+   
+   
+    url(r'register/',views.register,name = 'register'),
+    url(r'^$',views.login_view,name='login'),
+    url(r'logout/',views.logout_view,name='logout'),
     url(r'myaccount/', views.mine, name='myaccount'),
     url(r'^article/(\d+)',views.article,name ='article'),
     url(r'^new/article$', views.add_customer, name='add-customer'),

@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+{% block title %} Create Account {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div style="display: flex;flex-direction: row; padding-left: 100px">
+    <div
+        style="background-image: url(https://i.pinimg.com/originals/77/5e/7a/775e7ada2517e1fa49e58302c1fa6596.jpg);margin-left: 200px;height: 492px; width:300px;color:blanchedalmond;font-family: 'Philosopher', sans-serif">
+        <div style="padding-top: 160px;text-align: center">
+            <img src="https://gameo.io/static/images/dashboard/profile.6bcc1092ab3a.png" height="100px">
+            <h3 style="font-weight: bold;padding-top: 15px">Hello, Friend!</h3>
+            <p>Enter your personal details </br>and start journey with us.</p>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-12" style="box-shadow: 5px 1px 5px 1px #888888;font-family: 'Philosopher', sans-serif">
+            <h3 style="margin-left: 120px">CREATE ACCOUNT</h3>
+            <form method="POST" class="form-group" style="margin-left: 30px; height: 530px">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-secondary"
+                        style="border-radius: 50px;margin-left:110px;width:150px;background-color: rgba(0, 0, 0, 0.7);font-weight: bold;font-size: 18px">Register</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

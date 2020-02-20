@@ -23,9 +23,7 @@ urlpatterns = [
     url(r'^api-token-auth/', obtain_auth_token),
     url(r'^admin/', admin.site.urls),
     url(r'',include('mobicashapp.urls')),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^logout/$', views.logout, {"next_page": '/'}), 
-    url(r'^tinymce/', include('tinymce.urls')),
+
 
 ] 
 # We first import the views module from the django.contrib.auth module. Then we create a new URLconf. We provide the keyword argument next_page to define the page to go to after the user is logged out.
