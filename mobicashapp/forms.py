@@ -24,6 +24,9 @@ class ProfileForm(forms.ModelForm):
         # exclude=['user']
 
 
+class NewsLetterForm(forms.Form):
+    your_name = forms.CharField(label='First Name',max_length=30)
+    email = forms.EmailField(label='Email')
 # class PostForm(forms.ModelForm):
 #     class Meta:
 #         model = Image
@@ -66,10 +69,19 @@ class uploadimageForm(forms.ModelForm):
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
         }
+
+
+#   ...................      Ajax...................
+
+
 class uploadCustomerForm(forms.ModelForm):
     class Meta:
         model = Project
         exclude = ['editor', 'pub_date' ]
         widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
-        }        
+            'text': forms.TextInput(attrs={
+                'id': 'post-text', 
+                'required': True, 
+                'placeholder': 'Say something...'
+            }),
+        }

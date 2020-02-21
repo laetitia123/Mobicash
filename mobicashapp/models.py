@@ -19,10 +19,10 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projectes')
     link=models.CharField(max_length =60)
 
-    @classmethod
-    def search_by_title(cls,search_term):
-        images = cls.objects.filter(title__icontains=search_term)
-        return images
+    # @classmethod
+    # def search_by_title(cls,search_term):
+    #     images = cls.objects.filter(title__icontains=search_term)
+    #     return images
 
 
     def save_image(self):
