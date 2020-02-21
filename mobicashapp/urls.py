@@ -11,9 +11,10 @@ urlpatterns=[
     url(r'^new/article$', views.add_customer, name='add-customer'),
 
     url(r'^update/(?P<pk>\d+)$',views.update,name="update"),
-    url(r'^view_customer/$',views.view_customer,name = 'view_customer'),
-    url(r'^edit_customer/$',views.edit_customer,name = 'edit_customer'),
-    url(r'^delete_customer/$',views.delete_customer,name = 'delete_customer'),
+    url(r'^view_customer/$',views.view_customer,name = 'view-customer'),
+    url(r'^edit_customer/$',views.edit_customer,name = 'edit'),
+    url(r'^delete_customer/$',views.delete_customer,name = 'delete'),
+    url(r'^deleted/(?P<pk>\d+)$',views.deleted,name="deleted"),
 
     url(r'^api/merch/$', views.MerchList.as_view()),
     url(r'^api/merchpro/$', views.MerchListpro.as_view())

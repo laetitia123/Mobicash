@@ -24,20 +24,19 @@ def news_today(request):
     myprof=Profile.objects.filter(id=current_user.id).first()
     
     if request.method == 'POST':
-        form = uploadimageForm(request.POST)
+        form = uploadCustomerForm(request.POST)
         if form.is_valid():
             print('valid')
-            sku = form.cleaned_data['sku']
-            pname = form.cleaned_data['pname']
-            recipient =  Project(sku= sku,pname=pname)
+            name= form.cleaned_data['sku']
+            adress= form.cleaned_data['pname']
+            recipient =  Project(nme= name, adress=adress)
             recipient.save()
             # send_welcome_email(title,email)
             HttpResponseRedirect('news_today')
 
     else:
-        form = uploadimageForm()
+        form = uploadCustomerForm()
     return render(request, 'home.html', {"date": date,"images":images,"myprof":myprof,"letterForm":form})
-# def newsletter(request):
 #     sku = request.POST.get('your_name')
 #     pname = request.POST.get('email')
 
@@ -99,9 +98,10 @@ def add_customer(request):
         form = uploadCustomerForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
-            article.editor = current_user
+            article.user= current_user
+            article.profile= request.user
             article.save()
-        return redirect(news_today)
+        return redirect(add_customer)
 
     else:
         form = uploadCustomerForm()
@@ -110,26 +110,26 @@ def add_customer(request):
 
 @login_required(login_url='/accounts/login/')
 def view_customer(request):
-    customers = Add.objects.all()
-    return render(request,'all-files/view_customer.html',{'customers':customers})    
+    customers = Project.objects.all()
+    return render(request,'view-customer.html',{'customers':customers})    
 
 @login_required(login_url='/accounts/login/')
 def delete_customer(request):
-    customers = Add.objects.all()
-    return render(request,'all-files/delete_customer.html',{'customers':customers}) 
+    customers = Project.objects.all()
+    return render(request,'delete.html',{'customers':customers}) 
 
-def dele(request,pk=None):
-    object = Add.objects.get(id=pk)   
+def deleted(request,pk=None):
+    object = Project.objects.get(id=pk)   
     object.delete()
-    return render(request,'all-files/delete_customer.html')
+    return render(request,'view-customer.html')
 
 def update(request,pk=None):
     current_user = request.user
     if request.method == 'POST':
-        if Add.objects.filter(id=pk).exists():
-            form = AddForm(request.POST, request.FILES,instance=Add.objects.get(id=pk))
+        if Project.objects.filter(id=pk).exists():
+            form =uploadCustomerForm(request.POST, request.FILES,instance=Add.objects.get(id=pk))
         else:
-            form = AddForm(request.POST, request.FILES)
+            form = uploadCustomerForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = current_user
@@ -137,14 +137,14 @@ def update(request,pk=None):
             return redirect('view_customer',pk.id)
 
     else:
-        if Add.objects.filter(id=pk).exists():
-            form = AddForm(instance = Add.objects.get(id=pk))
+        if Project.objects.filter(id=pk).exists():
+            form = uploadCustomerForm(instance = Project.objects.get(id=pk))
         else:
-            form = AddForm()
-    return render(request, 'all-files/add_customer.html', {'form': form})
+            form = uploadCustomerForm()
+    return render(request, 'new_article.html', {'form': form})
 
 
 @login_required(login_url='/accounts/login/')
 def edit_customer(request):
-    customers = Add.objects.all()
-    return render(request,'all-files/edit_customer.html',{'customers':customers})
+    customers = Project.objects.all()
+    return render(request,'edit.html',{'customers':customers})

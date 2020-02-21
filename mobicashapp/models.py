@@ -7,17 +7,15 @@ from django.db.models.signals import post_save
 from django .core.validators import MaxValueValidator
 
 class Project(models.Model):
-    sku= models.CharField(max_length =60)
-    upc= models.CharField(max_length =60)
-    pname= models.CharField(max_length =60)
-    description=models.CharField(max_length =360)
-    taxcode= models.CharField(max_length =60)
-    tax_rate= models.CharField(max_length =60)
+    name= models.CharField(max_length =60)
+    adress= models.CharField(max_length =60)
+    phone= models.CharField(max_length =60)
+ 
     profile = models.ForeignKey(User,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to = 'projectes/')
+ 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projectes')
-    link=models.CharField(max_length =60)
+   
 
     # @classmethod
     # def search_by_title(cls,search_term):
@@ -88,4 +86,4 @@ class Rates (models.Model):
     content= models.PositiveIntegerField(default=0 ,validators=[MaxValueValidator(10)])
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     posted_by=models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
-    project=models.IntegerField(default=0)  
+project=models.IntegerField(default=0) 
